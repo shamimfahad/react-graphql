@@ -1,0 +1,15 @@
+.info ul li {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  padding-left: 1rem;
+}
+
+.info ul li img {
+  margin-right: 1.25rem;
+}
+
+.info .selected {
+  background: rgba(8, 110, 167, 0.53);
+  font-weight: bold;
+}

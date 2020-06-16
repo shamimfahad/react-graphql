@@ -1,0 +1,73 @@
+.edit {
+  display: flex;
+  flex-direction: column;
+  padding: 1.5rem 1.9rem 0;
+}
+
+.edit:first-child {
+  margin: 30px 0;
+}
+
+.edit .edit-top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit-top > p {
+  font-size: 1.75rem;
+  font-weight: bold;
+  color: #687074;
+}
+
+.edit-top > a {
+  color: #086ea7;
+}
+.edit-top > a > img {
+  padding-right: 20px;
+}
+
+.edit .form > * {
+  margin: 30px 0;
+}
+
+.edit .form .form-group > * {
+  margin: 15px 0;
+}
+
+.edit .form .form-group label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #687074;
+}
+
+.edit .form .form-group small {
+  color: #687074;
+  font-weight: lighter;
+}
+
+.edit .form .form-group input {
+  width: 100%;
+  height: 2rem;
+  background: #f2f4f7;
+  border: 0.2px solid #687074;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 0 10px;
+}
+
+.edit .results > span {
+  border: 0.2px solid #000000;
+  box-sizing: border-box;
+  border-radius: 5px;
+  padding: 8px 16px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.edit .results > span:not(:first-child) {
+  margin-left: 1rem;
+}
+
+.edit .results span > img {
+  margin-left: 1.75rem;
+}
