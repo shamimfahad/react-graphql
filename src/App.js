@@ -19,7 +19,12 @@ function App() {
             }}
           />
           <Route
-            path="/crud/:directory"
+            exact
+            path="/crud/:directory?"
+            render={({ match }) => <Index match={match} />}
+          />
+          <Route
+            path="/crud/:directory/:id"
             render={({ match }) => <Index match={match} />}
           />
           <Redirect to="/crud" component={Index} />

@@ -1,52 +1,34 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 
 import './edit.styles.scss';
 
-import Button from '../../img/button.svg';
-import Close from '../../img/close-outline.svg';
+import EditPost from './post/edit-post.component';
+import EditUser from './user/edit-user.component';
+import EditComment from './comment/edit-comment.component';
 
-const Edit = () => {
-  return (
-    <div className="edit">
-      <div className="edit-top">
-        <p>Edit a user</p>
-        <a href="/" className="btn">
-          {' '}
-          <img src={Button} alt="" /> Update
-        </a>
-      </div>
-      <div className="form">
-        <div className="form-group">
-          <label htmlFor="name">Name</label>
-          <input type="text" name="name" id="name" defaultValue="John Doe" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="address">Address</label>
-          <input
-            type="text"
-            name="address"
-            id="address"
-            defaultValue="Dhaka, Dhaka, Bangladesh"
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="search">Posts</label> <br />
-          <small>Search Posts And Tag</small> <br />
-          <input type="search" name="search" id="search" />
-        </div>
-        <div className="results">
-          <span>
-            Building A Huge Site With React
-            <img src={Close} alt="close" />
-          </span>
-          <span>
-            This is my second post
-            <img src={Close} alt="close" />
-          </span>
-        </div>
-      </div>
-    </div>
-  );
+const Edit = (props) => {
+  let { directory, id } = props.match.params;
+  console.log(directory, id);
+
+  let type = '';
+
+  if (directory) {
+    type = directory.slice(0, -1);
+  }
+
+  if (id) {
+    switch (type) {
+      case 'user':
+        return <EditUser />;
+      case 'post':
+        return <EditPost />;
+      case 'comment':
+        return <EditComment />;
+      default:
+        return <div>Select something</div>;
+    }
+  } else return <div>Select Item To Edit</div>;
 };
 
-export default Edit;
+export default withRouter(Edit);

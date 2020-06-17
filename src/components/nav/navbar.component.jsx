@@ -20,7 +20,7 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="blank" className="link">
+            <Link to="/blank" className="link">
               Blank
             </Link>
           </li>
