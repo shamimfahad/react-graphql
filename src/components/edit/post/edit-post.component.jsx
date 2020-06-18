@@ -27,17 +27,6 @@ const EditPost = () => {
         </div>
         <div className="form-group">
           <label htmlFor="body">Body</label>
-          {/* <textarea
-            name="body"
-            id="body"
-            cols="30"
-            rows="10"
-            defaultValue="Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto,
-            voluptas corporis beatae necessitatibus quod a excepturi facere
-            quibusdam explicabo fuga at quam ipsam accusantium illum fugit
-            dolorum? Similique, incidunt asperiores aliquid nulla aut obcaecati
-            temporibus. Quis eaque modi accusantium illum."
-          ></textarea> */}
           <CKEditor
             editor={ClassicEditor}
             data="<p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Iusto,

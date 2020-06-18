@@ -3,7 +3,8 @@ import React from 'react';
 import Button from '../../../img/button.svg';
 import Close from '../../../img/close-outline.svg';
 
-const EditUser = () => {
+const EditUser = ({ id }) => {
+  console.log(id);
   return (
     <div className="edit">
       <div className="edit-top">

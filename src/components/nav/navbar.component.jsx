@@ -20,8 +20,8 @@ const Navbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/blank" className="link">
-              Blank
+            <Link to="/create" className="link">
+              Create
             </Link>
           </li>
         </ul>

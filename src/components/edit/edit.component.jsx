@@ -9,7 +9,6 @@ import EditComment from './comment/edit-comment.component';
 
 const Edit = (props) => {
   let { directory, id } = props.match.params;
-  console.log(directory, id);
 
   let type = '';
 
@@ -20,11 +19,11 @@ const Edit = (props) => {
   if (id) {
     switch (type) {
       case 'user':
-        return <EditUser />;
+        return <EditUser id={id} />;
       case 'post':
-        return <EditPost />;
+        return <EditPost id={id} />;
       case 'comment':
-        return <EditComment />;
+        return <EditComment id={id} />;
       default:
         return <div>Select something</div>;
     }

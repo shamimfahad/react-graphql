@@ -1,0 +1,62 @@
+.create-container {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  margin: 2rem auto;
+  box-sizing: border-box;
+}
+
+form {
+  width: 50%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  border: 0.5px solid #ccc;
+}
+
+form > *,
+form > * > *,
+form > * > * > * {
+  margin: 0.5rem 1rem;
+}
+
+form > h3 {
+  text-align: center;
+  color: #333;
+}
+
+form > select {
+  margin-right: 30%;
+  margin-left: 30%;
+  border: 0.2px solid #aaa;
+  height: 1.5rem;
+  border-radius: 5px;
+}
+
+form label {
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333;
+  display: block;
+}
+
+form input,
+form textarea {
+  width: 90%;
+  height: 1.5rem;
+  border-radius: 5px;
+  border: 0.2px solid #aaa;
+  padding: 0.2rem 0.5rem;
+}
+
+form textarea {
+  height: 4rem;
+}
+
+form input[type='submit'] {
+  width: 4rem;
+  text-align: center;
+  margin-left: 44%;
+  cursor: pointer;
+}
