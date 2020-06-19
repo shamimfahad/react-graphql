@@ -1,22 +1,51 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
 
-import Blog from '../../img/carbon_blog.svg';
+import Comment from './comment.component';
+
+const GET_COMMENTS = gql`
+  {
+    comments {
+      id
+      data {
+        body
+      }
+    }
+  }
+`;
 
 const Comments = () => {
+  const [selected, setSelected] = useState('');
+  const { loading, error, data } = useQuery(GET_COMMENTS);
+
+  if (loading) return 'Loading...';
+  if (error) return `Error! ${error.message}`;
+
+  const { comments } = data;
   return (
     <ul>
-      <li className="selected">
-        <Link to="/crud/comments/1">
-          <img src={Blog} alt="" /> this post is very helpful
-        </Link>
-      </li>
-      <li>
-        <Link to="/crud/comments/2">
-          <img src={Blog} alt="" /> would love to hear more
-        </Link>
-      </li>
+      {comments.map((comment) => {
+        if (comment.id === selected) {
+          return (
+            <Comment
+              key={comment.id}
+              comment={comment}
+              active={true}
+              setSelected={setSelected}
+            />
+          );
+        } else
+          return (
+            <Comment
+              key={comment.id}
+              comment={comment}
+              active={false}
+              setSelected={setSelected}
+            />
+          );
+      })}
     </ul>
   );
 };

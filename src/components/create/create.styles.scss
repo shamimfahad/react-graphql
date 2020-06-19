@@ -6,7 +6,7 @@
   box-sizing: border-box;
 }
 
-form {
+.create-form {
   width: 50%;
   position: absolute;
   display: flex;
@@ -15,18 +15,18 @@ form {
   border: 0.5px solid #ccc;
 }
 
-form > *,
-form > * > *,
-form > * > * > * {
+.create-form > *,
+.create-form > * > *,
+.create-form > * > * > * {
   margin: 0.5rem 1rem;
 }
 
-form > h3 {
+.create-form > h3 {
   text-align: center;
   color: #333;
 }
 
-form > select {
+.create-form > select {
   margin-right: 30%;
   margin-left: 30%;
   border: 0.2px solid #aaa;
@@ -34,15 +34,15 @@ form > select {
   border-radius: 5px;
 }
 
-form label {
+.create-form label {
   font-size: 1rem;
   font-weight: bold;
   color: #333;
   display: block;
 }
 
-form input,
-form textarea {
+.create-form input,
+.create-form textarea {
   width: 90%;
   height: 1.5rem;
   border-radius: 5px;
@@ -50,11 +50,11 @@ form textarea {
   padding: 0.2rem 0.5rem;
 }
 
-form textarea {
+.create-form textarea {
   height: 4rem;
 }
 
-form input[type='submit'] {
+.create-form input[type='submit'] {
   width: 4rem;
   text-align: center;
   margin-left: 44%;

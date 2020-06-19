@@ -18,7 +18,7 @@ const GET_USERS = gql`
   }
 `;
 
-const Users = (props) => {
+const Users = () => {
   const [selected, setSelected] = useState('');
   const { loading, error, data } = useQuery(GET_USERS);
 

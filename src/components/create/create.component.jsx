@@ -168,7 +168,7 @@ const Create = () => {
 
   return (
     <div className="create-container">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="create-form">
         <h3>Select Type</h3>
         <select name="selectType" id="selectType" onChange={handleSelect}>
           <option value="user">User</option>

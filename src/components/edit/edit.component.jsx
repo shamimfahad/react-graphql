@@ -3,9 +3,9 @@ import { withRouter } from 'react-router-dom';
 
 import './edit.styles.scss';
 
-import EditPost from './post/edit-post.component';
-import EditUser from './user/edit-user.component';
-import EditComment from './comment/edit-comment.component';
+import { default as EditPost } from './post/edit-post.container';
+import { default as EditUser } from './user/edit-user.container';
+import { default as EditComment } from './comment/edit-comment.container';
 
 const Edit = (props) => {
   let { directory, id } = props.match.params;

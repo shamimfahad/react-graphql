@@ -19,33 +19,31 @@
   color: #687074;
 }
 
-.edit-top > a {
-  color: #086ea7;
-}
-.edit-top > a > img {
+.edit-top > button > img {
   padding-right: 20px;
 }
 
-.edit .form > * {
+.edit form > * {
   margin: 30px 0;
 }
 
-.edit .form .form-group > * {
+.edit form .form-group > * {
   margin: 15px 0;
 }
 
-.edit .form .form-group label {
+.edit form .form-group label {
   font-size: 1rem;
   font-weight: bold;
   color: #687074;
 }
 
-.edit .form .form-group small {
+.edit form .form-group small {
   color: #687074;
   font-weight: lighter;
 }
 
-.edit .form .form-group input {
+.edit form .form-group input,
+.edit form .form-group textarea {
   width: 100%;
   height: 2rem;
   background: #f2f4f7;
@@ -53,6 +51,10 @@
   box-sizing: border-box;
   border-radius: 5px;
   padding: 0 10px;
+}
+
+.edit form .form-group textarea {
+  height: 5rem;
 }
 
 .edit .results > span {
@@ -66,6 +68,7 @@
 
 .edit .results > span:not(:first-child) {
   margin-left: 1rem;
+  margin-top: 0.5rem;
 }
 
 .edit .results span > img {

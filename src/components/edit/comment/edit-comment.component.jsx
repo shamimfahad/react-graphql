@@ -1,47 +1,112 @@
-import React from 'react';
-import CKEditor from '@ckeditor/ckeditor5-react';
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import React, { useState } from 'react';
+
+import { gql } from 'apollo-boost';
+import { useMutation } from '@apollo/react-hooks';
 
 import Button from '../../../img/button.svg';
 import Close from '../../../img/close-outline.svg';
 
-const EditComment = () => {
+const UPDATE_COMMENT = gql`
+  mutation UpdateComment(
+    $_id: String!
+    $payload: comment_input_payload!
+    $connect: comment_input_connection_payload!
+    $disconnect: comment_input_disconnection_payload!
+  ) {
+    updateComment(
+      _id: $_id
+      payload: $payload
+      connect: $connect
+      disconnect: $disconnect
+    ) {
+      id
+      data {
+        body
+      }
+      post {
+        id
+        data {
+          title
+        }
+      }
+    }
+  }
+`;
+
+const EditComment = ({ comment, posts }) => {
+  const {
+    id,
+    data: { body },
+  } = comment;
+
+  const [commentCredentials, setCommentCredentials] = useState({
+    body,
+  });
+  const [connectPost, setConnectPost] = useState({
+    post_id: [],
+  });
+  const [disconnectPost, setDisconnectPost] = useState({
+    post_id: [],
+  });
+
+  const [isLoading, setLoading] = useState(false);
+  const [errorText, setError] = useState('');
+
+  const [
+    updateComment,
+    { loading: commentLoading, error: commentError },
+  ] = useMutation(UPDATE_COMMENT);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setCommentCredentials({ [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (commentCredentials) {
+      updateComment({
+        variables: {
+          _id: id,
+          payload: commentCredentials,
+          connect: connectPost,
+          disconnect: disconnectPost,
+        },
+      });
+      setLoading(commentLoading);
+      setError(commentError);
+    } else alert('nothing to update');
+  };
+
+  const handleClick = (e, post) => {
+    e.preventDefault();
+    alert(`this comment will be added to this ${post.data.title} `);
+    setConnectPost({ post_id: [post.id] });
+  };
+
+  const handleRemove = (e, post) => {
+    e.preventDefault();
+    alert(`this comment will be removed from this ${post.data.title} `);
+    setDisconnectPost({ post_id: [post.id] });
+  };
+
   return (
     <div className="edit">
-      <div className="edit-top">
-        <p>Edit a comment</p>
-        <a href="/" className="btn">
-          {' '}
-          <img src={Button} alt="" /> Update
-        </a>
-      </div>
-      <div className="form">
+      <form className="form" onSubmit={handleSubmit}>
+        <div className="edit-top">
+          <p>Edit a comment</p>
+          <button type="submit" className="btn">
+            <img src={Button} alt="" /> Update
+          </button>
+        </div>
         <div className="form-group">
           <label htmlFor="body">Body</label>
-          <CKEditor
-            editor={ClassicEditor}
-            data="<p>this post is very helpful</p>"
-            onInit={(editor) => {
-              // console.log('Editor is ready to use!', editor);
-            }}
-            onChange={(event, editor) => {
-              // const data = editor.getData();
-              // console.log({ event, editor, data });
-            }}
-            onBlur={(event, editor) => {
-              // console.log('Blur.', editor);
-            }}
-            onFocus={(event, editor) => {
-              // console.log('Focus.', editor);
-            }}
-          />
-          {/* <textarea
+          <textarea
             name="body"
             id="body"
-            cols="30"
-            rows="10"
-            defaultValue="this post is very helpful"
-          ></textarea> */}
+            onChange={handleChange}
+            defaultValue={body}
+          ></textarea>
         </div>
         <div className="form-group">
           <label htmlFor="search">Post</label> <br />
@@ -49,12 +114,27 @@ const EditComment = () => {
           <input type="search" name="search" id="search" placeholder="" />
         </div>
         <div className="results">
-          <span>
-            Building a site with React
-            <img src={Close} alt="close" />
-          </span>
+          {posts.map((post) => {
+            return (
+              <span key={post.id}>
+                <p
+                  style={{ cursor: 'pointer' }}
+                  onClick={(e) => handleClick(e, post)}
+                >
+                  {post.data.title}
+                </p>
+                <img
+                  src={Close}
+                  alt="close"
+                  onClick={(e) => handleRemove(e, post)}
+                />
+              </span>
+            );
+          })}
         </div>
-      </div>
+      </form>
+      {isLoading ? console.log('loading...') : null}
+      {errorText ? console.log(errorText) : null}
     </div>
   );
 };

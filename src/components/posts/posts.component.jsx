@@ -1,31 +1,53 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 
-import Blog from '../../img/carbon_blog.svg';
+import { useQuery } from '@apollo/react-hooks';
+import { gql } from 'apollo-boost';
+
+import Post from './post.component';
+
+const GET_POSTS = gql`
+  {
+    posts {
+      id
+      data {
+        body
+        title
+      }
+    }
+  }
+`;
 
 const Posts = () => {
+  const [selected, setSelected] = useState('');
+  const { loading, error, data } = useQuery(GET_POSTS);
+
+  if (loading) return 'Loading...';
+  if (error) return `Error! ${error.message}`;
+
+  const { posts } = data;
+
   return (
     <ul>
-      <li className="selected">
-        <Link to="/crud/posts/1">
-          <img src={Blog} alt="" /> Building a huge site with React
-        </Link>
-      </li>
-      <li>
-        <Link to="/crud/posts/2">
-          <img src={Blog} alt="" /> this is my second post
-        </Link>
-      </li>
-      <li>
-        <Link to="/crud/posts/3">
-          <img src={Blog} alt="" /> this is my third post
-        </Link>
-      </li>
-      <li>
-        <Link to="/crud/posts/4">
-          <img src={Blog} alt="" /> this is my fourth post
-        </Link>
-      </li>
+      {posts.map((post) => {
+        if (post.id === selected) {
+          return (
+            <Post
+              key={post.id}
+              post={post}
+              active={true}
+              setSelected={setSelected}
+            />
+          );
+        } else
+          return (
+            <Post
+              key={post.id}
+              post={post}
+              active={false}
+              setSelected={setSelected}
+            />
+          );
+      })}
     </ul>
   );
 };

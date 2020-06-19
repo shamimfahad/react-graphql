@@ -34,6 +34,8 @@ ul {
   border-radius: 10px;
   display: flex;
   align-items: center;
+  color: #086ea7;
+  cursor: pointer;
 }
 
 code {
