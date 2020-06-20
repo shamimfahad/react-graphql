@@ -19,11 +19,14 @@ const GET_POSTS = gql`
 
 const Posts = () => {
   const [selected, setSelected] = useState('');
+
+  // getting posts
   const { loading, error, data } = useQuery(GET_POSTS);
 
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
 
+  // setting posts
   const { posts } = data;
 
   return (

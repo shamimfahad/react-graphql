@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/react-hooks';
 import Button from '../../../img/button.svg';
 import Close from '../../../img/close-outline.svg';
 
+// mutation
 const UPDATE_POST = gql`
   mutation UpdatePost(
     $_id: String!
@@ -35,11 +36,13 @@ const UPDATE_POST = gql`
 `;
 
 const EditPost = ({ post, comments }) => {
+  // destructuring props
   const {
     id,
     data: { body, title },
   } = post;
 
+  // setting initial state
   const [postCredentials, setPostCredentials] = useState({
     body,
     title,
@@ -62,6 +65,7 @@ const EditPost = ({ post, comments }) => {
   );
 
   const handleSubmit = (e) => {
+    // submission & mutation
     // e.preventDefault();
     const { body, title } = postCredentials;
     if (body || title) {
@@ -79,26 +83,31 @@ const EditPost = ({ post, comments }) => {
   };
 
   const handleChange = (e) => {
+    // updaing state
     const { name, value } = e.target;
     setPostCredentials({ ...postCredentials, [name]: value });
   };
 
   const handleClick = (e, comment) => {
+    // connecting with comment
     e.preventDefault();
     alert(`${comment.data.body} will be assigned to this post`);
     setConnectComment({ comment_ids: [comment.id] });
   };
 
   const handleRemove = (e, comment) => {
+    // removing from comment
     e.preventDefault();
     alert(`${comment.data.body} will be removed from this post`);
     setDisconnectComment({ comment_ids: [comment.id] });
   };
 
   const handleSearch = (e) => {
+    // setting search value
     setSearchText(e.target.value);
   };
 
+  // filtering comments according to searchtext
   const filteredComments = comments.filter((comment) =>
     comment.data.body.toLowerCase().includes(searchText.toLowerCase())
   );

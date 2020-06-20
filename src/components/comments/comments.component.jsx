@@ -18,11 +18,13 @@ const GET_COMMENTS = gql`
 
 const Comments = () => {
   const [selected, setSelected] = useState('');
+  // getting comments
   const { loading, error, data } = useQuery(GET_COMMENTS);
 
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
 
+  // setting comments
   const { comments } = data;
   return (
     <ul>

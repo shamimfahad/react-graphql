@@ -5,6 +5,7 @@ import { useMutation } from '@apollo/react-hooks';
 
 import './create.styles.scss';
 
+// adding user mutation
 const ADD_USER = gql`
   mutation AddUser($payload: user_input_payload!) {
     createUser(payload: $payload) {
@@ -17,6 +18,7 @@ const ADD_USER = gql`
   }
 `;
 
+// adding post mutation
 const ADD_POST = gql`
   mutation AddPost($payload: post_input_payload!) {
     createPost(payload: $payload) {
@@ -29,6 +31,7 @@ const ADD_POST = gql`
   }
 `;
 
+// adding comment mutation
 const ADD_COMMENT = gql`
   mutation AddComment($payload: comment_input_payload!) {
     createComment(payload: $payload) {
@@ -42,21 +45,26 @@ const ADD_COMMENT = gql`
 
 const Create = () => {
   const [type, setType] = useState('');
+
+  // setting user credentials
   const [userCredentials, setUserCredentials] = useState({
     name: '',
     address: '',
   });
+  // setting post credentials
   const [postDetails, setPostDetails] = useState({
     title: '',
     body: '',
   });
-  const [commentBody, setCommentBody] = useState({
+  // setting comment credentials
+  const [commentCredentials, setCommentCredentials] = useState({
     body: '',
   });
 
   const [isLoading, setLoading] = useState(false);
   const [errorText, setError] = useState('');
 
+  // setting up hooks
   const [createUser, { loading: userLoading, error: userError }] = useMutation(
     ADD_USER
   );
@@ -73,6 +81,7 @@ const Create = () => {
   };
 
   const handleSubmit = (e) => {
+    // submission and mutation
     e.preventDefault();
     e.target.reset();
     switch (type) {
@@ -82,7 +91,7 @@ const Create = () => {
         setError(userError);
         break;
       case 'comment':
-        createComment({ variables: { payload: commentBody } });
+        createComment({ variables: { payload: commentCredentials } });
         setLoading(postLoading);
         setError(postError);
         break;
@@ -95,10 +104,11 @@ const Create = () => {
   };
 
   const handleChange = (e) => {
+    // updating state on change
     const { name, value } = e.target;
     switch (type) {
       case 'comment':
-        setCommentBody({ [name]: value });
+        setCommentCredentials({ [name]: value });
         break;
       case 'post':
         setPostDetails({ ...postDetails, [name]: value });

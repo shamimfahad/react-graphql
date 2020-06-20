@@ -6,6 +6,7 @@ import { useMutation } from '@apollo/react-hooks';
 import Button from '../../../img/button.svg';
 import Close from '../../../img/close-outline.svg';
 
+// mutation
 const UPDATE_USER = gql`
   mutation UpdateUser(
     $_id: String!
@@ -35,11 +36,13 @@ const UPDATE_USER = gql`
 `;
 
 const EditUser = ({ user, posts }) => {
+  // destructuring props
   const {
     id,
     data: { name, address },
   } = user;
 
+  // setting initial state
   const [userCredentials, setUserCredentials] = useState({
     name,
     address,
@@ -62,6 +65,7 @@ const EditUser = ({ user, posts }) => {
   );
 
   const handleSubmit = (e) => {
+    // submission & mutation
     // e.preventDefault();
     const { name, address } = userCredentials;
 
@@ -80,26 +84,31 @@ const EditUser = ({ user, posts }) => {
   };
 
   const handleChange = (e) => {
+    // updating state on change
     const { name, value } = e.target;
     setUserCredentials({ ...userCredentials, [name]: value });
   };
 
   const handleClick = (e, post) => {
+    // connecting posts to this usr
     e.preventDefault();
     alert(`${post.data.title} will be assigned to this user`);
     setConnectPost({ post_ids: [post.id] });
   };
 
   const handleRemove = (e, post) => {
+    // disconnecting posts from this user
     e.preventDefault();
     alert(`${post.data.title} will be removed from this user`);
     setDisconnectPost({ post_ids: [post.id] });
   };
 
   const handleSearch = (e) => {
+    // setting search value
     setSearchText(e.target.value);
   };
 
+  // filtering posts according to search value
   const filteredPosts = posts.filter((post) =>
     post.data.body.toLowerCase().includes(searchText.toLowerCase())
   );

@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 const User = ({ post, active, setSelected }) => {
   const handleClick = () => {
+    // setting active class
     setSelected(post.id);
   };
 

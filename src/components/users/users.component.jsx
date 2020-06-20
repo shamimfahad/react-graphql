@@ -20,11 +20,14 @@ const GET_USERS = gql`
 
 const Users = () => {
   const [selected, setSelected] = useState('');
+
+  // getting users from server
   const { loading, error, data } = useQuery(GET_USERS);
 
   if (loading) return 'Loading...';
   if (error) return `Error! ${error.message}`;
 
+  // setting users
   const { users } = data;
 
   return (
