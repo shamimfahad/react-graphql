@@ -52,6 +52,8 @@ const EditPost = ({ post, comments }) => {
     comment_ids: [],
   });
 
+  const [searchText, setSearchText] = useState('');
+
   const [isLoading, setLoading] = useState(false);
   const [errorText, setError] = useState('');
 
@@ -93,6 +95,14 @@ const EditPost = ({ post, comments }) => {
     setDisconnectComment({ comment_ids: [comment.id] });
   };
 
+  const handleSearch = (e) => {
+    setSearchText(e.target.value);
+  };
+
+  const filteredComments = comments.filter((comment) =>
+    comment.data.body.toLowerCase().includes(searchText.toLowerCase())
+  );
+
   return (
     <div className="edit">
       <form className="form" onSubmit={handleSubmit}>
@@ -124,10 +134,16 @@ const EditPost = ({ post, comments }) => {
         <div className="form-group">
           <label htmlFor="search">Comments</label> <br />
           <small>Search Comments And Assign It To The Post</small> <br />
-          <input type="search" name="search" id="search" placeholder="" />
+          <input
+            type="search"
+            name="search"
+            id="search"
+            placeholder="Search"
+            onChange={handleSearch}
+          />
         </div>
         <div className="results">
-          {comments.map((comment) => {
+          {filteredComments.map((comment) => {
             return (
               <span key={comment.id}>
                 <p

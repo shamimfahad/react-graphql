@@ -49,6 +49,8 @@ const EditComment = ({ comment, posts }) => {
     post_id: [],
   });
 
+  const [searchText, setSearchText] = useState('');
+
   const [isLoading, setLoading] = useState(false);
   const [errorText, setError] = useState('');
 
@@ -90,6 +92,14 @@ const EditComment = ({ comment, posts }) => {
     setDisconnectPost({ post_id: [post.id] });
   };
 
+  const handleSearch = (e) => {
+    setSearchText(e.target.value);
+  };
+
+  const filteredPosts = posts.filter((post) =>
+    post.data.body.toLowerCase().includes(searchText.toLowerCase())
+  );
+
   return (
     <div className="edit">
       <form className="form" onSubmit={handleSubmit}>
@@ -111,10 +121,16 @@ const EditComment = ({ comment, posts }) => {
         <div className="form-group">
           <label htmlFor="search">Post</label> <br />
           <small>Search a post and tag this comment</small> <br />
-          <input type="search" name="search" id="search" placeholder="" />
+          <input
+            type="search"
+            name="search"
+            id="search"
+            placeholder="Search"
+            onChange={handleSearch}
+          />
         </div>
         <div className="results">
-          {posts.map((post) => {
+          {filteredPosts.map((post) => {
             return (
               <span key={post.id}>
                 <p

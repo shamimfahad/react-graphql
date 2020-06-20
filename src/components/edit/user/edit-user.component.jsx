@@ -52,6 +52,8 @@ const EditUser = ({ user, posts }) => {
     post_ids: [],
   });
 
+  const [searchText, setSearchText] = useState('');
+
   const [isLoading, setLoading] = useState(false);
   const [errorText, setError] = useState('');
 
@@ -94,6 +96,14 @@ const EditUser = ({ user, posts }) => {
     setDisconnectPost({ post_ids: [post.id] });
   };
 
+  const handleSearch = (e) => {
+    setSearchText(e.target.value);
+  };
+
+  const filteredPosts = posts.filter((post) =>
+    post.data.body.toLowerCase().includes(searchText.toLowerCase())
+  );
+
   return (
     <div className="edit">
       <form className="form" onSubmit={handleSubmit}>
@@ -126,10 +136,16 @@ const EditUser = ({ user, posts }) => {
         <div className="form-group">
           <label htmlFor="search">Posts</label> <br />
           <small>Search Posts And Tag</small> <br />
-          <input type="search" name="search" id="search" />
+          <input
+            type="search"
+            name="search"
+            id="search"
+            placeholder="Search"
+            onChange={handleSearch}
+          />
         </div>
         <div className="results">
-          {posts.map((post) => {
+          {filteredPosts.map((post) => {
             return (
               <span key={post.id}>
                 <p
